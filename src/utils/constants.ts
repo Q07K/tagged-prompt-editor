@@ -21,6 +21,6 @@ export const INITIAL_PROMPT = `<help-prompt>
   </tag-content>
   <tag-toggle>
     태그 표시/숨기기 토글 버튼입니다.
-    태그를 숨길 시 복사된 Prompt 또한 해당 태그 프롬프트가 숨겨집니다.
+    태그를 숨길 때 복사된 Prompt 또한 해당 태그 프롬프트가 숨겨집니다.
   </tag-toggle>
 </help-visual-block>`
