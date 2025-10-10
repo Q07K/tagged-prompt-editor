@@ -10,8 +10,17 @@
     <meta property="og:title" content="Tagged Prompt Editor" />
     <meta property="og:description" content="AI 프롬프트를 태그로 구성하고 편집하는 도구" />
     <meta property="og:image" content="/thumbnail.png" />
-    <meta property="og:url" content="https://q07k.github.io/tagged-prompt-editor/" />
+    <meta property="og:url" content="" id="og-url" />
     <meta property="og:type" content="website" />
+    <script>
+      // Dynamically set the og:url meta tag to the current page URL
+      document.addEventListener("DOMContentLoaded", function() {
+        var ogUrlTag = document.getElementById("og-url");
+        if (ogUrlTag) {
+          ogUrlTag.setAttribute("content", window.location.href);
+        }
+      });
+    </script>
 
     <!-- Twitter Card 메타 태그들 -->
     <meta name="twitter:card" content="summary_large_image" />
