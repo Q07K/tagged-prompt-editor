@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 태그 하이라이팅 글로벌 스타일 */
+.prompt-text-display__content .tag-highlight {
+  color: #22d3ee !important; /* 시안색 */
+}
+
+.prompt-text-display__content .raw-text-disabled {
+  color: #6b7280 !important;
+}
+
+.prompt-text-display__content .raw-text-disabled.tag-highlight {
+  color: #6b7280 !important;
+}

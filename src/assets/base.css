@@ -84,3 +84,39 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* 드래그 시 텍스트 겹침 방지 */
+::selection {
+  background-color: #3b82f6;
+  color: #ffffff;
+  white-space: pre;
+  line-height: 1.5;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: #3b82f6;
+  color: #ffffff;
+  white-space: pre;
+  line-height: 1.5;
+  text-shadow: none;
+}
+
+/* 텍스트 선택 시 개행과 공백 처리 */
+.prompt-text-display ::selection {
+  background-color: #3b82f6;
+  color: #ffffff;
+  white-space: pre;
+  line-height: 1.5;
+  text-shadow: none;
+  letter-spacing: normal;
+}
+
+.prompt-text-display ::-moz-selection {
+  background-color: #3b82f6;
+  color: #ffffff;
+  white-space: pre;
+  line-height: 1.5;
+  text-shadow: none;
+  letter-spacing: normal;
+}
