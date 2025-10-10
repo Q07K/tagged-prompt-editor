@@ -1,6 +1,15 @@
 <template>
-  <div class="tag-text" :class="{ 'tag-text--disabled': disabled }">
-    <div v-if="!isEditing" class="tag-text__preview" v-html="previewHtml" @click="startEditing" />
+  <div
+    v-if="node.content.trim() !== '' || isEditing"
+    class="tag-text"
+    :class="{ 'tag-text--disabled': disabled }"
+  >
+    <div
+      v-if="!isEditing"
+      class="tag-text__preview"
+      v-html="previewHtml"
+      @click="startEditing"
+    />
     <textarea
       v-else
       ref="editor"
@@ -124,8 +133,8 @@ function autoResize() {
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-family:
-    'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo,
-    monospace;
+    'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Consolas,
+    'Liberation Mono', Menlo, monospace;
   font-size: 0.875em;
   font-weight: 500;
 }
