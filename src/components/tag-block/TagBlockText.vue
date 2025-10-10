@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="props.node.content.trim() !== '' || isEditing"
+    v-if="node.content.trim() !== '' || isEditing"
     class="tag-text"
     :class="{ 'tag-text--disabled': disabled }"
   >
