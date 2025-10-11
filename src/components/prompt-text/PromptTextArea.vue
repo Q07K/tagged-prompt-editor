@@ -48,7 +48,10 @@ function handleScroll(event: Event) {
 
   scrollRequestId = requestAnimationFrame(() => {
     const target = event.target as HTMLTextAreaElement
-    emit('scroll', { scrollTop: target.scrollTop, scrollLeft: target.scrollLeft })
+    emit('scroll', {
+      scrollTop: target.scrollTop,
+      scrollLeft: target.scrollLeft,
+    })
     scrollRequestId = null
   })
 }
@@ -104,8 +107,8 @@ defineExpose({ textarea })
   resize: none;
   border: 0;
   font-family:
-    'Fira Code', ui-monospace, SFMono-Regular, SFMono, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+    'Fira Code', ui-monospace, SFMono-Regular, SFMono, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
   font-size: 0.9rem;
   line-height: 1.5;
   letter-spacing: 0;
