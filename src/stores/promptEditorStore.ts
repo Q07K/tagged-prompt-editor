@@ -101,8 +101,6 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
 
   function refreshNodes() {
     parsedNodes.value = cloneNodes(parsedNodes.value)
-    // 텍스트 재구성을 하지 않고 노드만 업데이트
-    // rebuildRawText()를 호출하지 않음
   }
 
   // 태그 블록에서 변경 시에만 사용하는 함수
