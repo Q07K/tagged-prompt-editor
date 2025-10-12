@@ -1,8 +1,14 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { parsePrompt, cloneNodes } from '@/composables/usePromptParser'
-import { buildCopyableText, buildRawTextHtml } from '@/composables/usePromptBuilder'
-import { getOpenTags, shouldTriggerAutoComplete } from '@/composables/useTagAutoComplete'
+import {
+  buildCopyableText,
+  buildRawTextHtml,
+} from '@/composables/usePromptBuilder'
+import {
+  getOpenTags,
+  shouldTriggerAutoComplete,
+} from '@/composables/useTagAutoComplete'
 import { escapeHtml } from '@/utils/htmlEscape'
 import { INITIAL_PROMPT } from '@/utils/constants'
 import type { PromptNode } from '@/utils/tagHelpers'
@@ -84,7 +90,8 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
   function moveSuggestion(delta: number) {
     if (!suggestions.value.length) return
     const length = suggestions.value.length
-    activeSuggestionIndex.value = (activeSuggestionIndex.value + delta + length) % length
+    activeSuggestionIndex.value =
+      (activeSuggestionIndex.value + delta + length) % length
   }
 
   function getActiveSuggestion(): string | null {
@@ -94,32 +101,42 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
 
   function refreshNodes() {
     parsedNodes.value = cloneNodes(parsedNodes.value)
-    // 텍스트 재구성을 하지 않고 노드만 업데이트
-    // rebuildRawText()를 호출하지 않음
   }
 
-  // 태그 블록에서 변경 시에만 사용하는 함수
-  function rebuildTextFromNodes() {
-    // 원본 텍스트의 구조를 최대한 보존하면서 재구성
+  /**
+   * 태그 블록에서 변경이 발생할 시 사용하는 함수
+   *
+   * @returns {void}
+   */
+  function rebuildTextFromNodes(): void {
+    // 노드들을 평탄하게 문자열로 변환하여 rawText를 재구성
     const newText = parsedNodes.value
       .map((node) => {
         if (isElementNode(node)) {
           // 엘리먼트 노드는 들여쓰기 없이 재구성
           return buildNodeStringFlat(node)
         } else {
-          // 텍스트 노드는 원본 그대로 하되 앞뒤 공백 제거
-          return node.content.trim()
+          // 텍스트 노드는 내용만 반환
+          return node.content
         }
       })
-      .filter(Boolean)
-      .join('\n\n')
+      .join('')
     rawText.value = newText
+
+    // 변경된 텍스트를 다시 파싱하여 노드들을 동기화
+    parseAndSet(newText)
   }
 
-  // 들여쓰기 없이 완전히 평면적으로 구성하는 함수
+  /**
+   * 노드를 들여쓰기 없이 평탄하게 문자열로 변환
+   *
+   * @param node - 변환할 PromptNode
+   * @returns {string} 변환된 문자열
+   */
   function buildNodeStringFlat(node: PromptNode): string {
+    // 텍스트 노드인 경우 내용만 반환
     if (!isElementNode(node)) {
-      return node.content.trim()
+      return node.content
     }
 
     const tagName = node.tagName || 'div'
@@ -128,35 +145,41 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
       return `<${tagName}></${tagName}>`
     }
 
-    const singleTextChild = node.children.length === 1 ? node.children[0] : undefined
+    const singleTextChild =
+      node.children.length === 1 ? node.children[0] : undefined
 
-    if (singleTextChild && isTextNode(singleTextChild) && !singleTextChild.content.includes('\n')) {
+    if (
+      singleTextChild &&
+      isTextNode(singleTextChild) &&
+      !singleTextChild.content.includes('\n')
+    ) {
+      // 자식이 하나이고 그것이 개행을 포함하지 않는 텍스트 노드인 경우
       const value = singleTextChild.content.trim()
       return `<${tagName}>${value}</${tagName}>`
     }
 
-    // 여러 자식이 있는 경우도 들여쓰기 없이 처리
+    // 여러 자식이 있는 경우 또는 자식이 개행을 포함하는 경우
     const children = node.children
       .map((child) => {
         if (isTextNode(child)) {
-          // 텍스트 노드의 모든 들여쓰기 제거
+          // 텍스트 노드인 경우 내용만 반환
           return child.content
-            .split('\n')
-            .map((line) => line.trim())
-            .filter((line) => line)
-            .join('\n')
         } else {
+          // 엘리먼트 노드인 경우 재귀적으로 처리
           return buildNodeStringFlat(child)
         }
       })
       .filter(Boolean)
 
-    // 모든 자식을 개행으로 연결하되 들여쓰기는 없음
-    const body = children.join('\n')
-    return `<${tagName}>\n${body}\n</${tagName}>`
+    // 모든 자식을 합쳐서 반환
+    const body = children.join('')
+    return `<${tagName}>${body}</${tagName}>`
   }
 
-  function findNodeById(id: number, nodes: PromptNode[] = parsedNodes.value): PromptNode | null {
+  function findNodeById(
+    id: number,
+    nodes: PromptNode[] = parsedNodes.value,
+  ): PromptNode | null {
     for (const node of nodes) {
       if (node.id === id) return node
       if (isElementNode(node)) {
@@ -191,7 +214,10 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
     rebuildTextFromNodes() // 텍스트 내용 변경 시에만 텍스트 재구성
   }
 
-  function appendChildTextNode(parentId: number, content: string): number | null {
+  function appendChildTextNode(
+    parentId: number,
+    content: string,
+  ): number | null {
     const parent = findNodeById(parentId)
     if (!parent || !isElementNode(parent)) return null
     const id = generateId()

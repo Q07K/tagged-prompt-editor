@@ -2,7 +2,9 @@
   <section class="prompt-panel">
     <header class="prompt-panel__header">
       <h2 class="prompt-panel__title">Tagged Prompt</h2>
-      <button type="button" class="prompt-panel__copy" @click="handleCopy">{{ copyLabel }}</button>
+      <button type="button" class="prompt-panel__copy" @click="handleCopy">
+        {{ copyLabel }}
+      </button>
     </header>
 
     <div ref="editorRef" class="prompt-panel__editor">
@@ -158,7 +160,10 @@ function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'ArrowDown' || (event.key === 'Tab' && !event.shiftKey)) {
       moveSuggestion(1)
       updateAnchor(textarea.selectionStart ?? 0)
-    } else if (event.key === 'ArrowUp' || (event.key === 'Tab' && event.shiftKey)) {
+    } else if (
+      event.key === 'ArrowUp' ||
+      (event.key === 'Tab' && event.shiftKey)
+    ) {
       moveSuggestion(-1)
       updateAnchor(textarea.selectionStart ?? 0)
     } else if (event.key === 'Enter') {
@@ -503,7 +508,10 @@ function handleToggleComment() {
       if (allCommented) {
         // 주석 제거
         if (line.trim().startsWith('<!-- ') && line.trim().endsWith(' -->')) {
-          const uncommented = line.replace(/^(\s*)<!-- (.*) -->(\s*)$/, '$1$2$3')
+          const uncommented = line.replace(
+            /^(\s*)<!-- (.*) -->(\s*)$/,
+            '$1$2$3',
+          )
           lines[i] = uncommented
           offset -= 9 // '<!-- ' + ' -->' = 9 characters
         }
@@ -520,7 +528,9 @@ function handleToggleComment() {
   }
 
   const newValue = lines.join('\n')
-  const newStart = start + (startLineIndex === 0 ? 0 : offset / (endLineIndex - startLineIndex + 1))
+  const newStart =
+    start +
+    (startLineIndex === 0 ? 0 : offset / (endLineIndex - startLineIndex + 1))
   const newEnd = end + offset
 
   updateFromUserInput(newValue, Math.max(0, newStart))
@@ -546,7 +556,8 @@ function handleNewLineBelow() {
 
   // 현재 줄 끝 위치 계산
   const lineStart =
-    lines.slice(0, currentLineIndex).join('\n').length + (currentLineIndex > 0 ? 1 : 0)
+    lines.slice(0, currentLineIndex).join('\n').length +
+    (currentLineIndex > 0 ? 1 : 0)
   const lineEnd = lineStart + currentLine.length
 
   // 새 줄 삽입
@@ -578,7 +589,8 @@ function handleNewLineAbove() {
 
   // 현재 줄 시작 위치 계산
   const lineStart =
-    lines.slice(0, currentLineIndex).join('\n').length + (currentLineIndex > 0 ? 1 : 0)
+    lines.slice(0, currentLineIndex).join('\n').length +
+    (currentLineIndex > 0 ? 1 : 0)
 
   // 새 줄 삽입
   const before = value.substring(0, lineStart)
@@ -667,10 +679,14 @@ function handleMarkdownFormat(prefix: string, suffix: string) {
     const afterFirstLine = afterLines[0] || ''
 
     // 바로 위 줄이 ```이고 아래에 ```가 있는지 확인
-    isAlreadyFormatted = beforeLastLine.trim() === '```' && afterFirstLine.trim() === '```'
+    isAlreadyFormatted =
+      beforeLastLine.trim() === '```' && afterFirstLine.trim() === '```'
   } else {
     // 일반 마크다운의 경우
-    const beforeText = value.substring(Math.max(0, start - prefix.length), start)
+    const beforeText = value.substring(
+      Math.max(0, start - prefix.length),
+      start,
+    )
     const afterText = value.substring(end, end + suffix.length)
     isAlreadyFormatted = beforeText === prefix && afterText === suffix
   }
@@ -710,7 +726,10 @@ function handleMarkdownFormat(prefix: string, suffix: string) {
         const newPosition = Math.max(0, start - 4) // ``` + \n
         updateFromUserInput(newText, newPosition)
         setTimeout(() => {
-          textarea.setSelectionRange(newPosition, newPosition + selectedText.length)
+          textarea.setSelectionRange(
+            newPosition,
+            newPosition + selectedText.length,
+          )
         }, 0)
       }
     } else {
@@ -722,7 +741,10 @@ function handleMarkdownFormat(prefix: string, suffix: string) {
       const newPosition = start - prefix.length
       updateFromUserInput(newText, newPosition)
       setTimeout(() => {
-        textarea.setSelectionRange(newPosition, newPosition + selectedText.length)
+        textarea.setSelectionRange(
+          newPosition,
+          newPosition + selectedText.length,
+        )
       }, 0)
     }
     lastMarkdownAction.value = null
@@ -736,7 +758,12 @@ function handleMarkdownFormat(prefix: string, suffix: string) {
 
   if (selectedText) {
     // 선택된 텍스트가 있는 경우: 감싸기
-    newText = value.substring(0, start) + prefix + selectedText + suffix + value.substring(end)
+    newText =
+      value.substring(0, start) +
+      prefix +
+      selectedText +
+      suffix +
+      value.substring(end)
     newStart = start + prefix.length
     newEnd = newStart + selectedText.length
   } else {
@@ -779,7 +806,10 @@ function handleMarkdownLink() {
 
   if (selectedText) {
     // 선택된 텍스트가 있는 경우: 링크 텍스트로 사용
-    newText = value.substring(0, start) + `[${selectedText}](url)` + value.substring(end)
+    newText =
+      value.substring(0, start) +
+      `[${selectedText}](url)` +
+      value.substring(end)
     newStart = start + selectedText.length + 3 // '](' 이후 위치
     newEnd = newStart + 3 // 'url' 길이
   } else {

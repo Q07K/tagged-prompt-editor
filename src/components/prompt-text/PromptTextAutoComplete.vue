@@ -66,7 +66,7 @@ function handleSelect(value: string) {
   padding: 0.5rem 0.75rem;
   text-align: left;
   background: transparent;
-  color: #9ca3af;
+  color: #7c0000;
   font-size: 0.85rem;
   font-weight: 500;
   border: 0;

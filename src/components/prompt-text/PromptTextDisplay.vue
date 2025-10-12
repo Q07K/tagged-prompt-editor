@@ -1,6 +1,9 @@
 <template>
   <div ref="displayContainer" class="prompt-text-display">
-    <pre class="prompt-text-display__content" v-html="highlightedText || '&nbsp;'" />
+    <pre
+      class="prompt-text-display__content"
+      v-html="highlightedText || '&nbsp;'"
+    />
   </div>
 </template>
 
@@ -70,8 +73,8 @@ watch(
 .prompt-text-display__content {
   margin: 0;
   font-family:
-    'Fira Code', ui-monospace, SFMono-Regular, SFMono, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+    'Fira Code', ui-monospace, SFMono-Regular, SFMono, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
   font-size: 0.9rem;
   line-height: 1.5;
   letter-spacing: 0;
@@ -97,7 +100,7 @@ watch(
 <style>
 /* 글로벌 스타일 - 하이라이팅 */
 .tag-highlight {
-  color: #22d3ee !important;
+  color: #000000 !important;
 }
 
 .raw-text-disabled {
