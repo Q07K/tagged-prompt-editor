@@ -136,7 +136,7 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
   function buildNodeStringFlat(node: PromptNode): string {
     // 텍스트 노드인 경우 내용만 반환
     if (!isElementNode(node)) {
-      return node.content.trim()
+      return node.content
     }
 
     const tagName = node.tagName || 'div'
