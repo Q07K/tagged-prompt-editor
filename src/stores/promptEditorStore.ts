@@ -1,8 +1,14 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { parsePrompt, cloneNodes } from '@/composables/usePromptParser'
-import { buildCopyableText, buildRawTextHtml } from '@/composables/usePromptBuilder'
-import { getOpenTags, shouldTriggerAutoComplete } from '@/composables/useTagAutoComplete'
+import {
+  buildCopyableText,
+  buildRawTextHtml,
+} from '@/composables/usePromptBuilder'
+import {
+  getOpenTags,
+  shouldTriggerAutoComplete,
+} from '@/composables/useTagAutoComplete'
 import { escapeHtml } from '@/utils/htmlEscape'
 import { INITIAL_PROMPT } from '@/utils/constants'
 import type { PromptNode } from '@/utils/tagHelpers'
@@ -84,7 +90,8 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
   function moveSuggestion(delta: number) {
     if (!suggestions.value.length) return
     const length = suggestions.value.length
-    activeSuggestionIndex.value = (activeSuggestionIndex.value + delta + length) % length
+    activeSuggestionIndex.value =
+      (activeSuggestionIndex.value + delta + length) % length
   }
 
   function getActiveSuggestion(): string | null {
@@ -112,8 +119,11 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
         }
       })
       .filter(Boolean)
-      .join('\n\n')
+      .join('\n\n') // 최 상위 노드 간 빈 줄로 구분
     rawText.value = newText
+
+    // 파싱된 노드들을 다시 파싱하여 구조를 최신 상태로 유지
+    parseAndSet(newText)
   }
 
   // 들여쓰기 없이 완전히 평면적으로 구성하는 함수
@@ -128,9 +138,14 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
       return `<${tagName}></${tagName}>`
     }
 
-    const singleTextChild = node.children.length === 1 ? node.children[0] : undefined
+    const singleTextChild =
+      node.children.length === 1 ? node.children[0] : undefined
 
-    if (singleTextChild && isTextNode(singleTextChild) && !singleTextChild.content.includes('\n')) {
+    if (
+      singleTextChild &&
+      isTextNode(singleTextChild) &&
+      !singleTextChild.content.includes('\n')
+    ) {
       const value = singleTextChild.content.trim()
       return `<${tagName}>${value}</${tagName}>`
     }
@@ -156,7 +171,10 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
     return `<${tagName}>\n${body}\n</${tagName}>`
   }
 
-  function findNodeById(id: number, nodes: PromptNode[] = parsedNodes.value): PromptNode | null {
+  function findNodeById(
+    id: number,
+    nodes: PromptNode[] = parsedNodes.value,
+  ): PromptNode | null {
     for (const node of nodes) {
       if (node.id === id) return node
       if (isElementNode(node)) {
@@ -191,7 +209,10 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
     rebuildTextFromNodes() // 텍스트 내용 변경 시에만 텍스트 재구성
   }
 
-  function appendChildTextNode(parentId: number, content: string): number | null {
+  function appendChildTextNode(
+    parentId: number,
+    content: string,
+  ): number | null {
     const parent = findNodeById(parentId)
     if (!parent || !isElementNode(parent)) return null
     const id = generateId()
