@@ -109,21 +109,21 @@ export const usePromptEditorStore = defineStore('promptEditor', () => {
    * @returns {void}
    */
   function rebuildTextFromNodes(): void {
-    // 원본 텍스트의 구조를 최대한 보존하면서 재구성
+    // 노드들을 평탄하게 문자열로 변환하여 rawText를 재구성
     const newText = parsedNodes.value
       .map((node) => {
         if (isElementNode(node)) {
           // 엘리먼트 노드는 들여쓰기 없이 재구성
           return buildNodeStringFlat(node)
         } else {
-          // 텍스트 노드는 원본 그대로 하되 앞뒤 공백 제거
+          // 텍스트 노드는 내용만 반환
           return node.content
         }
       })
       .join('')
     rawText.value = newText
 
-    // 파싱된 노드들을 다시 파싱하여 구조를 최신 상태로 유지
+    // 변경된 텍스트를 다시 파싱하여 노드들을 동기화
     parseAndSet(newText)
   }
 
