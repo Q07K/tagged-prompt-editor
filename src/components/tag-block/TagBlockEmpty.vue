@@ -1,5 +1,10 @@
 <template>
-  <button type="button" class="tag-empty" :disabled="disabled" @click="$emit('create')">
+  <button
+    type="button"
+    class="tag-empty"
+    :disabled="disabled"
+    @click="$emit('create')"
+  >
     클릭하여 텍스트를 추가하세요...
   </button>
 </template>

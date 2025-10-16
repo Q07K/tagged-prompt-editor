@@ -9,7 +9,11 @@
     />
     <div class="tag-element__children">
       <template v-for="child in node.children" :key="child.id">
-        <TagBlockElement v-if="child.type === 'element'" :node="child" :disabled="isDisabled" />
+        <TagBlockElement
+          v-if="child.type === 'element'"
+          :node="child"
+          :disabled="isDisabled"
+        />
         <TagBlockText
           v-else-if="child.content.trim() !== ''"
           :node="child"
@@ -17,7 +21,11 @@
           :autofocus="child.id === pendingChildId"
         />
       </template>
-      <TagBlockEmpty v-if="isEmpty" :disabled="isDisabled" @create="handleCreateChild" />
+      <TagBlockEmpty
+        v-if="isEmpty"
+        :disabled="isDisabled"
+        @create="handleCreateChild"
+      />
     </div>
   </div>
 </template>
@@ -41,14 +49,18 @@ const props = defineProps<{
 const store = usePromptEditorStore()
 const pendingChildId = ref<number | null>(null)
 
-const isDisabled = computed(() => props.disabled || props.node.enabled === false)
+const isDisabled = computed(
+  () => props.disabled || props.node.enabled === false,
+)
 
 // 태그가 비어있는지 판단하는 로직
 const isEmpty = computed(() => {
   if (props.node.children.length === 0) return true
 
   // 모든 자식이 텍스트 노드이고 내용이 비어있거나 공백/줄바꿈만 있는 경우
-  return props.node.children.every((child) => isTextNode(child) && child.content.trim() === '')
+  return props.node.children.every(
+    (child) => isTextNode(child) && child.content.trim() === '',
+  )
 })
 
 function onTagChange(value: string) {

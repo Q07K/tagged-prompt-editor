@@ -41,7 +41,7 @@ import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import { getCaretMetrics } from '@/composables/useCaretPosition'
 import { storeToRefs } from 'pinia'
 
-const placeholder = '<instruction>여기에 지시사항을 입력하세요...</instruction>'
+const placeholder = '여기에 태그 기반 프롬프트를 입력해주세요.'
 
 const store = usePromptEditorStore()
 const editorRef = ref<HTMLElement | null>(null)

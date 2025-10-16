@@ -2,7 +2,11 @@ import { escapeHtml } from '@/utils/htmlEscape'
 import type { PromptNode } from '@/utils/tagHelpers'
 import { isElementNode, isTextNode } from '@/utils/tagHelpers'
 
-export function buildNodeString(node: PromptNode, indent = 0, useOriginalIndent = false): string {
+export function buildNodeString(
+  node: PromptNode,
+  indent = 0,
+  useOriginalIndent = false,
+): string {
   if (useOriginalIndent) {
     // 원본 인덴테이션을 최대한 보존
     return buildNodeStringPreservingIndent(node, indent)
@@ -20,9 +24,14 @@ export function buildNodeString(node: PromptNode, indent = 0, useOriginalIndent 
     return `${indentStr}<${tagName}></${tagName}>`
   }
 
-  const singleTextChild = node.children.length === 1 ? node.children[0] : undefined
+  const singleTextChild =
+    node.children.length === 1 ? node.children[0] : undefined
 
-  if (singleTextChild && isTextNode(singleTextChild) && !singleTextChild.content.includes('\n')) {
+  if (
+    singleTextChild &&
+    isTextNode(singleTextChild) &&
+    !singleTextChild.content.includes('\n')
+  ) {
     const value = singleTextChild.content.trim()
     return `${indentStr}<${tagName}>${value}</${tagName}>`
   }
@@ -34,7 +43,10 @@ export function buildNodeString(node: PromptNode, indent = 0, useOriginalIndent 
   return `${indentStr}<${tagName}>\n${body}\n${indentStr}</${tagName}>`
 }
 
-function buildNodeStringPreservingIndent(node: PromptNode, baseIndent = 0): string {
+function buildNodeStringPreservingIndent(
+  node: PromptNode,
+  baseIndent = 0,
+): string {
   if (!isElementNode(node)) {
     // 텍스트 노드의 경우 원본 내용을 그대로 유지하되, 빈 라인은 제거
     return node.content.replace(/^\s*\n|\n\s*$/g, '') // 시작과 끝의 빈 라인만 제거
@@ -47,9 +59,14 @@ function buildNodeStringPreservingIndent(node: PromptNode, baseIndent = 0): stri
     return `${baseIndentStr}<${tagName}></${tagName}>`
   }
 
-  const singleTextChild = node.children.length === 1 ? node.children[0] : undefined
+  const singleTextChild =
+    node.children.length === 1 ? node.children[0] : undefined
 
-  if (singleTextChild && isTextNode(singleTextChild) && !singleTextChild.content.includes('\n')) {
+  if (
+    singleTextChild &&
+    isTextNode(singleTextChild) &&
+    !singleTextChild.content.includes('\n')
+  ) {
     return `${baseIndentStr}<${tagName}>${singleTextChild.content.trim()}</${tagName}>`
   }
 
@@ -70,7 +87,11 @@ function buildNodeStringPreservingIndent(node: PromptNode, baseIndent = 0): stri
   return `${baseIndentStr}<${tagName}>\n${body}\n${baseIndentStr}</${tagName}>`
 }
 
-export function buildRawTextHtml(node: PromptNode, indent = 0, parentDisabled = false): string {
+export function buildRawTextHtml(
+  node: PromptNode,
+  indent = 0,
+  parentDisabled = false,
+): string {
   const isDisabled = parentDisabled || node.enabled === false
 
   if (!isElementNode(node)) {
@@ -99,9 +120,14 @@ export function buildRawTextHtml(node: PromptNode, indent = 0, parentDisabled = 
     return `<span class="tag-highlight ${spanClass}">${escapeHtml(`<${tagName}></${tagName}>`)}</span>`
   }
 
-  const singleTextChild = node.children.length === 1 ? node.children[0] : undefined
+  const singleTextChild =
+    node.children.length === 1 ? node.children[0] : undefined
 
-  if (singleTextChild && isTextNode(singleTextChild) && !singleTextChild.content.includes('\n')) {
+  if (
+    singleTextChild &&
+    isTextNode(singleTextChild) &&
+    !singleTextChild.content.includes('\n')
+  ) {
     const value = singleTextChild.content.trim()
     // 태그와 텍스트를 분리해서 처리
     const openTag = `<span class="tag-highlight ${spanClass}">${escapeHtml(`<${tagName}>`)}</span>`
@@ -116,7 +142,9 @@ export function buildRawTextHtml(node: PromptNode, indent = 0, parentDisabled = 
   }
 
   // 자식 노드들을 처리하되 원본 구조 완전 보존
-  const parts = node.children.map((child) => buildRawTextHtml(child, indent + 1, isDisabled))
+  const parts = node.children.map((child) =>
+    buildRawTextHtml(child, indent + 1, isDisabled),
+  )
 
   const open = `<span class="tag-highlight ${spanClass}">${escapeHtml(`<${tagName}>`)}</span>`
   const close = `<span class="tag-highlight ${spanClass}">${escapeHtml(`</${tagName}>`)}</span>`

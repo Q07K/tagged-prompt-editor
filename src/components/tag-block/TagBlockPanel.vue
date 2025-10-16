@@ -7,11 +7,16 @@
       <template v-if="nodes.length">
         <template v-for="node in nodes" :key="node.id">
           <TagBlockElement v-if="node.type === 'element'" :node="node" />
-          <TagBlockText v-else :node="node" :disabled="node.enabled === false" />
+          <TagBlockText
+            v-else
+            :node="node"
+            :disabled="node.enabled === false"
+          />
         </template>
       </template>
       <p v-else class="tag-panel__placeholder">
-        왼쪽 텍스트 영역에 유효한 태그를 입력해 주세요. (예: &lt;tag&gt;내용&lt;/tag&gt;)
+        왼쪽 텍스트 영역에 유효한 태그를 입력해 주세요. (예:
+        &lt;tag&gt;내용&lt;/tag&gt;)
       </p>
     </div>
   </section>

@@ -1,8 +1,18 @@
 <template>
   <div class="tag-header">
-    <input :value="tagName" :disabled="disabled" class="tag-header__tag" @input="onTagInput" />
+    <input
+      :value="tagName"
+      :disabled="disabled"
+      class="tag-header__tag"
+      @input="onTagInput"
+    />
     <label class="tag-header__switch">
-      <input type="checkbox" class="tag-header__checkbox" :checked="enabled" @change="onToggle" />
+      <input
+        type="checkbox"
+        class="tag-header__checkbox"
+        :checked="enabled"
+        @change="onToggle"
+      />
       <span class="tag-header__indicator" />
     </label>
   </div>

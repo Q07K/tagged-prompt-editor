@@ -5,7 +5,10 @@ interface ParseOptions {
   idFactory: () => number
 }
 
-export function parsePrompt(source: string, options: ParseOptions): PromptNode[] {
+export function parsePrompt(
+  source: string,
+  options: ParseOptions,
+): PromptNode[] {
   const { idFactory } = options
 
   function walk(text: string): PromptNode[] {
@@ -17,7 +20,6 @@ export function parsePrompt(source: string, options: ParseOptions): PromptNode[]
     while ((match = pattern.exec(text)) !== null) {
       const preceding = text.substring(lastIndex, match.index)
       if (preceding.length > 0) {
-        // trim() 조건 제거하여 들여쓰기와 줄바꿈 보존
         nodes.push(createTextNode(preceding))
       }
 
@@ -32,12 +34,10 @@ export function parsePrompt(source: string, options: ParseOptions): PromptNode[]
 
     const trailing = text.substring(lastIndex)
     if (trailing.length > 0) {
-      // trim() 조건 제거하여 들여쓰기와 줄바꿈 보존
       nodes.push(createTextNode(trailing))
     }
 
     if (nodes.length === 0 && text.length > 0) {
-      // trim() 조건 제거
       return [createTextNode(text)]
     }
 
