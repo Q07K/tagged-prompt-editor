@@ -1,0 +1,7 @@
+/* src/assets/main.css */
+@import './fonts.css';
+@import './base.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
