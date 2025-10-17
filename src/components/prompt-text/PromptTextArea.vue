@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
+import colors from '@/assets/theme/colors'
 
 const props = defineProps<{
   modelValue: string
@@ -113,7 +114,7 @@ defineExpose({ textarea })
   line-height: 1.5;
   letter-spacing: 0;
   color: transparent;
-  caret-color: #fff;
+  caret-color: v-bind('colors["text-main-light"]');
   white-space: pre;
   overflow-wrap: normal;
   outline: none;
@@ -126,6 +127,9 @@ defineExpose({ textarea })
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   text-rendering: optimizeSpeed;
+}
+.dark .prompt-text-area {
+  caret-color: v-bind('colors["text-main-dark"]');
 }
 
 /* 텍스트 선택 시 겹침 방지 */
