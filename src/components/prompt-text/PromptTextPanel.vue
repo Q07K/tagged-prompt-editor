@@ -42,6 +42,7 @@ import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import { getCaretMetrics } from '@/composables/useCaretPosition'
 import { storeToRefs } from 'pinia'
 import PanelHeader from '../common/PanelHeader.vue'
+import colors from '@/assets/theme/colors'
 
 const placeholder = '여기에 태그 기반 프롬프트를 입력해주세요.'
 
@@ -893,10 +894,14 @@ function handleRedo() {
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  background-color: #1f2937;
-  border: 1px solid #374151;
+  background-color: v-bind('colors["background-light"]');
+  border: 1px solid v-bind('colors["border-light"]');
   border-radius: 0.75rem;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
+}
+.dark .prompt-panel {
+  background-color: v-bind('colors["background-dark"]');
+  border-color: v-bind('colors["border-dark"]');
 }
 
 .prompt-panel__copy {
