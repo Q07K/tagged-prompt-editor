@@ -39,9 +39,8 @@ const { parsedNodes: nodes } = storeToRefs(store)
   flex: 1;
   min-height: 0;
   background-color: v-bind('colors["background-light"]');
-  border: 1px solid v-bind('colors["border-light"]');
+  border: 2px solid v-bind('colors["border-light"]');
   border-radius: 0.75rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
 }
 
 .dark .tag-panel {
