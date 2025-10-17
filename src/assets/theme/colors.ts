@@ -1,4 +1,4 @@
-// src/assets/theme/colors.js
+// src/assets/theme/colors.ts
 
 export default {
   // Brand Colors
