@@ -36,14 +36,14 @@ const { isDark, toggleTheme } = useTheme()
 .toggle-track {
   width: 3rem;
   height: 1.5rem;
-  background-color: #e5e7eb;
+  background-color: v-bind('colors["secondary-light"]');
   border-radius: 0.75rem;
   position: relative;
   transition: background-color 0.3s ease;
 }
 
 .toggle-track--active {
-  background-color: v-bind('colors.primary');
+  background-color: v-bind('colors["primary"]');
 }
 
 .toggle-thumb {
@@ -74,10 +74,10 @@ const { isDark, toggleTheme } = useTheme()
 }
 
 .dark .toggle-track {
-  background-color: #374151;
+  background-color: v-bind('colors["secondary-dark"]');
 }
 
 .dark .toggle-track--active {
-  background-color: v-bind('colors.primary');
+  background-color: v-bind('colors["primary"]');
 }
 </style>
