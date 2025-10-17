@@ -84,9 +84,6 @@ function handleCreateChild() {
 
 <style scoped>
 .tag-element {
-  background: v-bind('colors["background-light"] + "10"');
-  border: 2px solid v-bind('colors["border-light"] + "aa"');
-  border-radius: 0.75rem;
   padding: 0.9rem;
   display: flex;
   flex-direction: column;
@@ -94,10 +91,6 @@ function handleCreateChild() {
   transition: border-color 0.2s ease;
   position: relative;
   z-index: 1;
-}
-.dark .tag-element {
-  background: v-bind('colors["background-dark"] + "10"');
-  border-color: v-bind('colors["border-dark"] + "aa"');
 }
 
 .tag-element:hover {

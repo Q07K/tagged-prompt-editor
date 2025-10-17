@@ -1,23 +1,16 @@
 <template>
-  <section class="tag-panel">
-    <PanelHeader title="Visual Block Renderer" />
-    <div class="tag-panel__body">
-      <template v-if="nodes.length">
-        <template v-for="node in nodes" :key="node.id">
-          <TagBlockElement v-if="node.type === 'element'" :node="node" />
-          <TagBlockText
-            v-else
-            :node="node"
-            :disabled="node.enabled === false"
-          />
-        </template>
+  <BasePanel title="Visual Block Renderer" content-class="tag-panel__body">
+    <template v-if="nodes.length">
+      <template v-for="node in nodes" :key="node.id">
+        <TagBlockElement v-if="node.type === 'element'" :node="node" />
+        <TagBlockText v-else :node="node" :disabled="node.enabled === false" />
       </template>
-      <p v-else class="tag-panel__placeholder">
-        왼쪽 텍스트 영역에 유효한 태그를 입력해 주세요. (예:
-        &lt;tag&gt;내용&lt;/tag&gt;)
-      </p>
-    </div>
-  </section>
+    </template>
+    <p v-else class="tag-panel__placeholder">
+      왼쪽 텍스트 영역에 유효한 태그를 입력해 주세요. (예:
+      &lt;tag&gt;내용&lt;/tag&gt;)
+    </p>
+  </BasePanel>
 </template>
 
 <script setup lang="ts">
@@ -25,29 +18,14 @@ import { storeToRefs } from 'pinia'
 import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import TagBlockElement from './TagBlockElement.vue'
 import TagBlockText from './TagBlockText.vue'
-import PanelHeader from '../common/PanelHeader.vue'
 import colors from '@/assets/theme/colors'
+import BasePanel from '../common/BasePanel.vue'
 
 const store = usePromptEditorStore()
 const { parsedNodes: nodes } = storeToRefs(store)
 </script>
 
 <style scoped>
-.tag-panel {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  background-color: v-bind('colors["background-light"]');
-  border: 2px solid v-bind('colors["border-light"]');
-  border-radius: 0.75rem;
-}
-
-.dark .tag-panel {
-  background-color: v-bind('colors["background-dark"]');
-  border-color: v-bind('colors["border-dark"]');
-}
-
 .tag-panel__body {
   flex: 1;
   overflow-y: auto;
