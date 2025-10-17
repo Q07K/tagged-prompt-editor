@@ -47,5 +47,6 @@ withDefaults(defineProps<Props>(), {
 .base-panel__content {
   flex: 1;
   min-height: 0;
+  position: relative;
 }
 </style>
