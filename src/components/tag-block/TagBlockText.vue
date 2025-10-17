@@ -27,6 +27,7 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { renderMarkdown } from '@/composables/useMarkdown'
 import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import type { PromptTextNode } from '@/utils/tagHelpers'
+import colors from '@/assets/theme/colors'
 
 const props = defineProps<{
   node: PromptTextNode
@@ -85,13 +86,17 @@ function autoResize() {
 
 <style scoped>
 .tag-text {
-  background-color: rgba(55, 65, 81, 0.45);
+  background-color: v-bind('colors["surface-light"]');
+  border: 2px solid v-bind('colors["border-light"] + "aa"');
   border-radius: 0.5rem;
   padding: 0.75rem;
-  border: 1px solid rgba(75, 85, 99, 0.8);
   transition: border-color 0.2s ease;
   position: relative;
   z-index: 1;
+}
+.dark .tag-text {
+  background-color: v-bind('colors["surface-dark"]');
+  border-color: v-bind('colors["border-dark"] + "aa"');
 }
 
 .tag-text__preview {
@@ -105,12 +110,15 @@ function autoResize() {
   min-height: 6rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(34, 211, 238, 0.5);
-  background: #111827;
-  color: #d1d5db;
+  background: v-bind('colors["primary"] + "10"');
+  color: v-bind('colors["text-main-light"]');
   font-size: 0.92rem;
   padding: 0.75rem;
   resize: none;
   outline: none;
+}
+.dark .tag-text__editor {
+  color: v-bind('colors["text-main-dark"]');
 }
 
 .tag-text--disabled {
@@ -175,6 +183,6 @@ function autoResize() {
 }
 
 :deep(li::marker) {
-  color: #22d3ee;
+  color: v-bind('colors["primary"]');
 }
 </style>

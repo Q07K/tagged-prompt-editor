@@ -19,6 +19,8 @@
 </template>
 
 <script setup lang="ts">
+import colors from '@/assets/theme/colors'
+
 defineProps<{
   tagName: string
   enabled: boolean
@@ -51,17 +53,24 @@ function onToggle(event: Event) {
 
 .tag-header__tag {
   flex: 1;
-  background-color: rgba(8, 145, 178, 0.35);
-  border: 1px solid rgba(34, 211, 238, 0.35);
+  background-color: v-bind('colors["surface-light"]');
+  border: 2px solid v-bind('colors["border-light"] + "aa"');
   border-radius: 0.375rem;
-  color: #22d3ee;
+  color: v-bind('colors["text-main-light"]');
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.35rem 0.5rem;
 }
 
+.dark .tag-header__tag {
+  background-color: v-bind('colors["surface-dark"]');
+  border-color: v-bind('colors["border-dark"] + "aa"');
+  color: v-bind('colors["text-main-dark"]');
+}
+
 .tag-header__tag:focus {
-  outline: 2px solid rgba(34, 211, 238, 0.75);
+  background-color: v-bind('colors["primary"] + "10"');
+  outline: 2px solid v-bind('colors["primary"] + "aa"');
 }
 
 .tag-header__tag:disabled {

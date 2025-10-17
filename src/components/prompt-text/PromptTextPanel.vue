@@ -1,11 +1,12 @@
 <template>
   <section class="prompt-panel">
-    <header class="prompt-panel__header">
-      <h2 class="prompt-panel__title">Tagged Prompt</h2>
-      <button type="button" class="prompt-panel__copy" @click="handleCopy">
-        {{ copyLabel }}
-      </button>
-    </header>
+    <PanelHeader title="Tagged Prompt">
+      <template #actions>
+        <button type="button" class="prompt-panel__copy" @click="handleCopy">
+          {{ copyLabel }}
+        </button>
+      </template>
+    </PanelHeader>
 
     <div ref="editorRef" class="prompt-panel__editor">
       <PromptTextDisplay
@@ -40,6 +41,8 @@ import PromptTextAutoComplete from './PromptTextAutoComplete.vue'
 import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import { getCaretMetrics } from '@/composables/useCaretPosition'
 import { storeToRefs } from 'pinia'
+import PanelHeader from '../common/PanelHeader.vue'
+import colors from '@/assets/theme/colors'
 
 const placeholder = '여기에 태그 기반 프롬프트를 입력해주세요.'
 
@@ -891,27 +894,13 @@ function handleRedo() {
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  background-color: #1f2937;
-  border: 1px solid #374151;
+  background-color: v-bind('colors["background-light"]');
+  border: 2px solid v-bind('colors["border-light"]');
   border-radius: 0.75rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
 }
-
-.prompt-panel__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #4b5563;
-  background-color: rgba(55, 65, 81, 0.6);
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
-}
-
-.prompt-panel__title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #d1d5db;
+.dark .prompt-panel {
+  background-color: v-bind('colors["background-dark"]');
+  border-color: v-bind('colors["border-dark"]');
 }
 
 .prompt-panel__copy {
