@@ -26,6 +26,7 @@ import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import TagBlockElement from './TagBlockElement.vue'
 import TagBlockText from './TagBlockText.vue'
 import PanelHeader from '../common/PanelHeader.vue'
+import colors from '@/assets/theme/colors'
 
 const store = usePromptEditorStore()
 const { parsedNodes: nodes } = storeToRefs(store)
@@ -37,10 +38,15 @@ const { parsedNodes: nodes } = storeToRefs(store)
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  background-color: #1f2937;
-  border: 1px solid #374151;
+  background-color: v-bind('colors["background-light"]');
+  border: 1px solid v-bind('colors["border-light"]');
   border-radius: 0.75rem;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
+}
+
+.dark .tag-panel {
+  background-color: v-bind('colors["background-dark"]');
+  border-color: v-bind('colors["border-dark"]');
 }
 
 .tag-panel__body {
@@ -56,8 +62,11 @@ const { parsedNodes: nodes } = storeToRefs(store)
 
 .tag-panel__placeholder {
   text-align: center;
-  color: #9ca3af;
+  color: v-bind('colors["text-main-light"]');
   font-size: 0.9rem;
   margin: auto;
+}
+.dark .tag-panel__placeholder {
+  color: v-bind('colors["text-main-dark"]');
 }
 </style>
