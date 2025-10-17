@@ -1,36 +1,34 @@
 <template>
-  <section class="prompt-panel">
-    <PanelHeader title="Tagged Prompt">
-      <template #actions>
-        <button type="button" class="prompt-panel__copy" @click="handleCopy">
-          {{ copyLabel }}
-        </button>
-      </template>
-    </PanelHeader>
+  <BasePanel title="Tagged Prompt" content-class="prompt-panel__editor">
+    <template #actions>
+      <button type="button" class="prompt-panel__copy" @click="handleCopy">
+        {{ copyLabel }}
+      </button>
+    </template>
 
-    <div ref="editorRef" class="prompt-panel__editor">
-      <PromptTextDisplay
-        :text="rawText"
-        :scroll-top="scrollState.scrollTop"
-        :scroll-left="scrollState.scrollLeft"
-      />
-      <PromptTextArea
-        ref="areaRef"
-        :model-value="rawText"
-        :placeholder="placeholder"
-        @input="handleInput"
-        @keydown="handleKeydown"
-        @scroll="handleScroll"
-      />
-      <PromptTextAutoComplete
-        :anchor="suggestionAnchor"
-        :suggestions="suggestions"
-        :visible="isSuggestionVisible"
-        :active-index="activeSuggestionIndex"
-        @select="handleSuggestionSelect"
-      />
-    </div>
-  </section>
+    <!-- div 제거하고 직접 내용 배치 -->
+    <PromptTextDisplay
+      ref="editorRef"
+      :text="rawText"
+      :scroll-top="scrollState.scrollTop"
+      :scroll-left="scrollState.scrollLeft"
+    />
+    <PromptTextArea
+      ref="areaRef"
+      :model-value="rawText"
+      :placeholder="placeholder"
+      @input="handleInput"
+      @keydown="handleKeydown"
+      @scroll="handleScroll"
+    />
+    <PromptTextAutoComplete
+      :anchor="suggestionAnchor"
+      :suggestions="suggestions"
+      :visible="isSuggestionVisible"
+      :active-index="activeSuggestionIndex"
+      @select="handleSuggestionSelect"
+    />
+  </BasePanel>
 </template>
 
 <script setup lang="ts">
@@ -41,8 +39,7 @@ import PromptTextAutoComplete from './PromptTextAutoComplete.vue'
 import { usePromptEditorStore } from '@/stores/promptEditorStore'
 import { getCaretMetrics } from '@/composables/useCaretPosition'
 import { storeToRefs } from 'pinia'
-import PanelHeader from '../common/PanelHeader.vue'
-import colors from '@/assets/theme/colors'
+import BasePanel from '../common/BasePanel.vue'
 
 const placeholder = '여기에 태그 기반 프롬프트를 입력해주세요.'
 
@@ -888,21 +885,6 @@ function handleRedo() {
 </script>
 
 <style scoped>
-.prompt-panel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  background-color: v-bind('colors["background-light"]');
-  border: 2px solid v-bind('colors["border-light"]');
-  border-radius: 0.75rem;
-}
-.dark .prompt-panel {
-  background-color: v-bind('colors["background-dark"]');
-  border-color: v-bind('colors["border-dark"]');
-}
-
 .prompt-panel__copy {
   padding: 0.3rem 0.9rem;
   border-radius: 0.5rem;
