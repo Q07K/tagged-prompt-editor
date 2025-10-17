@@ -6,16 +6,19 @@
       </template>
     </PanelHeader>
 
-    <div class="base-panel__content" :class="contentClass">
+    <div class="base-panel__content" :class="contentClass" ref="contentEl">
       <slot />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import PanelHeader from './PanelHeader.vue'
 import colors from '@/assets/theme/colors'
 
+const contentEl = ref<HTMLElement | null>(null)
+defineExpose({ contentEl })
 interface Props {
   title: string
   panelClass?: string
