@@ -106,14 +106,12 @@ watch(
 .dark .tag-highlight {
   color: v-bind('colors["success-dark"]') !important;
 }
-.raw-text-disabled {
+.raw-text-disabled,
+.raw-text-disabled .tag-highlight {
   color: v-bind('colors["text-disabled-light"]') !important;
 }
-.dark .raw-text-disabled {
+.dark .raw-text-disabled,
+.dark .raw-text-disabled .tag-highlight {
   color: v-bind('colors["text-disabled-dark"]') !important;
-}
-
-.raw-text-disabled.tag-highlight {
-  color: v-bind('colors.primary') !important;
 }
 </style>
