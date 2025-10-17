@@ -38,6 +38,7 @@ import { isTextNode } from '@/utils/tagHelpers'
 import TagBlockHeader from './TagBlockHeader.vue'
 import TagBlockText from './TagBlockText.vue'
 import TagBlockEmpty from './TagBlockEmpty.vue'
+import colors from '@/assets/theme/colors'
 
 defineOptions({ name: 'TagBlockElement' })
 
@@ -83,8 +84,8 @@ function handleCreateChild() {
 
 <style scoped>
 .tag-element {
-  background: rgba(55, 65, 81, 0.45);
-  border: 1px solid rgba(75, 85, 99, 0.8);
+  background: v-bind('colors["background-light"] + "10"');
+  border: 2px solid rgba(75, 85, 99, 0.2);
   border-radius: 0.75rem;
   padding: 0.9rem;
   display: flex;
@@ -94,15 +95,17 @@ function handleCreateChild() {
   position: relative;
   z-index: 1;
 }
+.dark .tag-element {
+  background: v-bind('colors["background-dark"] + "10"');
+}
 
 .tag-element:hover {
-  border-color: rgba(14, 165, 233, 0.4);
+  border-color: v-bind('colors.primary + "80"');
 }
 
 .tag-element--disabled {
   opacity: 0.6;
-  border-color: #4b5563;
-  background: rgba(55, 65, 81, 0.4);
+  background: rgba(55, 65, 81, 0.1);
 }
 
 .tag-element__children {
@@ -110,6 +113,6 @@ function handleCreateChild() {
   flex-direction: column;
   gap: 0.75rem;
   padding-left: 1rem;
-  border-left: 2px solid rgba(75, 85, 99, 0.6);
+  border-left: 2px solid rgba(75, 85, 99, 0.2);
 }
 </style>
