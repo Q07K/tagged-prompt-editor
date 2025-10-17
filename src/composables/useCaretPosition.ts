@@ -30,7 +30,10 @@ const MIRRORED_PROPERTIES = [
   'width',
 ]
 
-export function getCaretMetrics(textarea: HTMLTextAreaElement, position: number): CaretMetrics {
+export function getCaretMetrics(
+  textarea: HTMLTextAreaElement,
+  position: number,
+): CaretMetrics {
   const mirror = document.createElement('div')
   const style = window.getComputedStyle(textarea)
 
@@ -43,7 +46,10 @@ export function getCaretMetrics(textarea: HTMLTextAreaElement, position: number)
   mirror.style.whiteSpace = 'pre'
 
   MIRRORED_PROPERTIES.forEach((prop) => {
-    const hyphenated = prop.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+    const hyphenated = prop.replace(
+      /[A-Z]/g,
+      (match) => `-${match.toLowerCase()}`,
+    )
     const value = style.getPropertyValue(hyphenated)
     mirror.style.setProperty(hyphenated, value)
   })
@@ -54,9 +60,12 @@ export function getCaretMetrics(textarea: HTMLTextAreaElement, position: number)
   span.style.visibility = 'hidden'
   mirror.appendChild(span)
 
-  const top = span.offsetTop + parseInt(style.borderTopWidth, 10) - textarea.scrollTop
-  const left = span.offsetLeft + parseInt(style.borderLeftWidth, 10) - textarea.scrollLeft
-  const height = parseInt(style.lineHeight, 10) || textarea.getBoundingClientRect().height
+  const top =
+    span.offsetTop + parseInt(style.borderTopWidth, 10) - textarea.scrollTop
+  const left =
+    span.offsetLeft + parseInt(style.borderLeftWidth, 10) - textarea.scrollLeft
+  const height =
+    parseInt(style.lineHeight, 10) || textarea.getBoundingClientRect().height
 
   document.body.removeChild(mirror)
 

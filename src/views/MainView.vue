@@ -1,16 +1,16 @@
 <template>
-  <PromptEditorLayout>
+  <MainLayout>
     <template #prompt-text>
       <PromptTextPanel />
     </template>
     <template #tag-block>
       <TagBlockPanel />
     </template>
-  </PromptEditorLayout>
+  </MainLayout>
 </template>
 
 <script setup lang="ts">
-import PromptEditorLayout from '@/components/layout/PromptEditorLayout.vue'
+import MainLayout from '@/components/layout/MainLayout.vue'
 import PromptTextPanel from '@/components/prompt-text/PromptTextPanel.vue'
 import TagBlockPanel from '@/components/tag-block/TagBlockPanel.vue'
 </script>
