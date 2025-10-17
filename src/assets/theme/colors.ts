@@ -23,6 +23,9 @@ export default {
   'text-subtle-light': '#64748B',
   'text-subtle-dark': '#94A3B8',
 
+  'text-disabled-light': '#94A3B8',
+  'text-disabled-dark': '#475569',
+
   // Semantic
   'success-light': '#14B8A6',
   'success-dark': '#2DD4BF',
