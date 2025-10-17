@@ -11,6 +11,7 @@
 import { ref, watch, nextTick, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { usePromptEditorStore } from '@/stores/promptEditorStore'
+import colors from '@/assets/theme/colors'
 
 const props = defineProps<{
   text: string
@@ -72,13 +73,10 @@ watch(
 
 .prompt-text-display__content {
   margin: 0;
-  font-family:
-    'Fira Code', ui-monospace, SFMono-Regular, SFMono, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
   font-size: 0.9rem;
   line-height: 1.5;
   letter-spacing: 0;
-  color: #d1d5db;
+  color: v-bind('colors["text-main-light"]');
   white-space: pre;
   overflow-wrap: normal;
   tab-size: 4;
@@ -95,19 +93,25 @@ watch(
   font-feature-settings: 'tnum';
   text-rendering: optimizeSpeed;
 }
+.dark .prompt-text-display__content {
+  color: v-bind('colors["text-main-dark"]');
+}
 </style>
 
 <style>
 /* 글로벌 스타일 - 하이라이팅 */
 .tag-highlight {
-  color: #000000 !important;
+  color: v-bind('colors.primary') !important;
 }
 
 .raw-text-disabled {
-  color: #6b7280 !important;
+  color: v-bind('colors["text-disabled-light"]') !important;
+}
+.dark .raw-text-disabled {
+  color: v-bind('colors["text-disabled-dark"]') !important;
 }
 
 .raw-text-disabled.tag-highlight {
-  color: #6b7280 !important;
+  color: v-bind('colors.primary') !important;
 }
 </style>
