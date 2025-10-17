@@ -105,7 +105,6 @@ function handleCreateChild() {
 
 .tag-element--disabled {
   opacity: 0.6;
-  background: rgba(55, 65, 81, 0.1);
 }
 
 .tag-element__children {
