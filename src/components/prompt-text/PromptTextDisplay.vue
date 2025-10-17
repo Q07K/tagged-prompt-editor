@@ -101,9 +101,11 @@ watch(
 <style>
 /* 글로벌 스타일 - 하이라이팅 */
 .tag-highlight {
-  color: v-bind('colors.primary') !important;
+  color: v-bind('colors["success-light"]') !important;
 }
-
+.dark .tag-highlight {
+  color: v-bind('colors["success-dark"]') !important;
+}
 .raw-text-disabled {
   color: v-bind('colors["text-disabled-light"]') !important;
 }

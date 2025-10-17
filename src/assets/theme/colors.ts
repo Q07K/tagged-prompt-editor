@@ -27,7 +27,7 @@ export default {
   'text-disabled-dark': '#475569',
 
   // Semantic
-  'success-light': '#14B8A6',
+  'success-light': '#118E80',
   'success-dark': '#2DD4BF',
 
   'warning-light': '#FBBF24',
