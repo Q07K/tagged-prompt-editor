@@ -3,7 +3,7 @@
     <h2 class="text-2xl font-bold">
       {{ title }}
     </h2>
-    <div v-if="$slots.actions" class="panel-header__actions">
+    <div v-if="$slots.actions" class="flex items-center gap-2">
       <slot name="actions" />
     </div>
   </header>
@@ -36,17 +36,5 @@ defineProps<Props>()
   border-bottom-color: v-bind('colors["border-dark"]');
   background-color: v-bind('colors["surface-dark"]');
   color: v-bind('colors["text-main-dark"]');
-}
-
-.panel-header__title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.panel-header__actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
 }
 </style>
