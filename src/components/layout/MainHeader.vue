@@ -6,7 +6,7 @@
         alt="Tagged Prompt Editor logo"
         class="h-10 mb-2"
       />
-      <h1 class="text-xl font-bold text-cyan-400">Tagged Prompt Editor</h1>
+      <h1 class="text-xl font-bold text-primary">Tagged Prompt Editor</h1>
     </div>
     <p class="text-sm text-gray-400 mt-1">
       왼쪽에 프롬프트를 입력/수정하면 오른쪽 블록이 실시간으로 업데이트됩니다.
