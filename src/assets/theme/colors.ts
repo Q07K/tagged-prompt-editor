@@ -7,10 +7,10 @@ export default {
   'secondary-dark': '#94A3B8',
 
   //UI
-  'background-light': '#F0F4F8',
+  'background-light': '#F8F5F0',
   'background-dark': '#1B2A3A',
 
-  'surface-light': '#F7FAFC',
+  'surface-light': '#FCFAF7',
   'surface-dark': '#293B4D',
 
   'border-light': '#DDE3E9',
