@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PromptEditorView from './views/PromptEditorView.vue'
+import MainView from './views/MainView.vue'
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-900">
-    <PromptEditorView />
+    <MainView />
   </div>
 </template>
