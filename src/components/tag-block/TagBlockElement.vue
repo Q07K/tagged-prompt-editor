@@ -85,7 +85,7 @@ function handleCreateChild() {
 <style scoped>
 .tag-element {
   background: v-bind('colors["background-light"] + "10"');
-  border: 2px solid rgba(75, 85, 99, 0.2);
+  border: 2px solid v-bind('colors["border-light"] + "aa"');
   border-radius: 0.75rem;
   padding: 0.9rem;
   display: flex;
@@ -97,6 +97,7 @@ function handleCreateChild() {
 }
 .dark .tag-element {
   background: v-bind('colors["background-dark"] + "10"');
+  border-color: v-bind('colors["border-dark"] + "aa"');
 }
 
 .tag-element:hover {
@@ -112,6 +113,9 @@ function handleCreateChild() {
   flex-direction: column;
   gap: 0.75rem;
   padding-left: 1rem;
-  border-left: 2px solid rgba(75, 85, 99, 0.2);
+  border-left: 2px solid v-bind('colors["border-light"] + "aa"');
+}
+.dark .tag-element__children {
+  border-color: v-bind('colors["border-dark"] + "aa"');
 }
 </style>
