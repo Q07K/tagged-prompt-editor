@@ -1,4 +1,4 @@
-// src/assets/theme/fontFamily.js
+// src/assets/theme/fontFamily.ts
 export default {
   sans: [
     'Pretendard',
