@@ -28,7 +28,6 @@ const { parsedNodes: nodes } = storeToRefs(store)
 <style scoped>
 .tag-panel__body {
   flex: 1;
-  overflow-y: auto;
   overflow-x: hidden;
   padding: 1rem;
   display: flex;
