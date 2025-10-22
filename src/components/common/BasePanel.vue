@@ -41,6 +41,7 @@ withDefaults(defineProps<Props>(), {
   background-color: v-bind('colors["background-light"]');
   border: 2px solid v-bind('colors["border-light"]');
   border-radius: 0.75rem;
+  height: 100%;
 }
 .dark .base-panel {
   background-color: v-bind('colors["background-dark"]');
@@ -50,6 +51,7 @@ withDefaults(defineProps<Props>(), {
 .base-panel__content {
   flex: 1;
   min-height: 0;
+  overflow-y: scroll;
   position: relative;
 }
 </style>
