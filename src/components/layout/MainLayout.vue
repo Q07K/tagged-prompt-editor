@@ -1,5 +1,5 @@
 <template>
-  <div class="main min-h-screen flex flex-col">
+  <div class="main h-screen grid grid-rows-[auto_1fr]">
     <MainHeader />
     <main class="flex-grow flex flex-col md:flex-row gap-4 p-4 overflow-hidden">
       <slot name="prompt-text" />
