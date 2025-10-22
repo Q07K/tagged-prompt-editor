@@ -5,11 +5,13 @@
     :disabled="disabled"
     @click="$emit('create')"
   >
-    클릭하여 텍스트를 추가하세요...
+    클릭하여 텍스트를 추가하세요.
   </button>
 </template>
 
 <script setup lang="ts">
+import colors from '@/assets/theme/colors'
+
 defineProps<{ disabled?: boolean }>()
 </script>
 
@@ -18,9 +20,9 @@ defineProps<{ disabled?: boolean }>()
   width: 100%;
   padding: 0.75rem;
   border-radius: 0.5rem;
-  border: 1px dashed rgba(148, 163, 184, 0.6);
+  border: 2px dashed v-bind('colors["border-light"] + "aa"');
+  background-color: v-bind('colors["surface-light"]');
   color: #9ca3af;
-  background: rgba(30, 41, 59, 0.35);
   font-style: italic;
   font-size: 0.85rem;
   cursor: pointer;
@@ -30,10 +32,14 @@ defineProps<{ disabled?: boolean }>()
     background 0.2s ease;
 }
 
+.dark .tag-empty {
+  border-color: v-bind('colors["border-dark"] + "aa"');
+  background-color: v-bind('colors["surface-dark"]');
+}
+
 .tag-empty:hover:enabled {
-  border-color: rgba(14, 165, 233, 0.65);
-  color: #e0f2fe;
-  background: rgba(14, 165, 233, 0.15);
+  border-color: v-bind('colors.primary + "80"');
+  background: v-bind('colors.primary + "80"');
 }
 
 .tag-empty:disabled {
