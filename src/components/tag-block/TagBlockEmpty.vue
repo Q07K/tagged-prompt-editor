@@ -22,7 +22,7 @@ defineProps<{ disabled?: boolean }>()
   border-radius: 0.5rem;
   border: 2px dashed v-bind('colors["border-light"] + "aa"');
   background-color: v-bind('colors["surface-light"]');
-  color: #9ca3af;
+  color: v-bind('colors["text-subtle-light"]');
   font-style: italic;
   font-size: 0.85rem;
   cursor: pointer;
@@ -35,6 +35,7 @@ defineProps<{ disabled?: boolean }>()
 .dark .tag-empty {
   border-color: v-bind('colors["border-dark"] + "aa"');
   background-color: v-bind('colors["surface-dark"]');
+  color: v-bind('colors["text-subtle-dark"]');
 }
 
 .tag-empty:hover:enabled {
